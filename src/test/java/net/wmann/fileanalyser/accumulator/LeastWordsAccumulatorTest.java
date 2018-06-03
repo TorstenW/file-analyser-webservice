@@ -1,7 +1,6 @@
 package net.wmann.fileanalyser.accumulator;
 
 import net.wmann.fileanalyser.exception.InvalidLineException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -12,7 +11,7 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class LeastWordsAccumulatorTest {
 
-    LeastWordsAccumulator accumulator = new LeastWordsAccumulator();
+    private LeastWordsAccumulator accumulator = new LeastWordsAccumulator();
 
     @Test
     public void processLine() {

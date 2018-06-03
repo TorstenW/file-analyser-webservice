@@ -10,7 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,11 +20,11 @@ import static org.mockito.Mockito.spy;
 @RunWith(MockitoJUnitRunner.class)
 public class UrlEvaluationTaskTest {
 
-    UrlEvaluationTask evaluationTask;
+    private UrlEvaluationTask evaluationTask;
 
     @Before
     public void setup() throws Exception {
-        evaluationTask = spy(new UrlEvaluationTask(new URI("http://google.com"), Arrays.asList(new LeastWordsAccumulator())));
+        evaluationTask = spy(new UrlEvaluationTask(new URI("http://google.com"), Collections.singletonList(new LeastWordsAccumulator())));
         BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/static/valid_example_speeches.csv")));
         doReturn(reader).when(evaluationTask).loadCsvFile(any());
     }
@@ -44,7 +44,7 @@ public class UrlEvaluationTaskTest {
     public void getWithInvalidUrl() throws Exception {
         String expectedResultString = "Error(error=File processing error for URL: google.com, exception=IllegalArgumentException, message=URI is not absolute)";
 
-        EvaluationResult taskResult = new UrlEvaluationTask(new URI("google.com"), Arrays.asList(new LeastWordsAccumulator())).get();
+        EvaluationResult taskResult = new UrlEvaluationTask(new URI("google.com"), Collections.singletonList(new LeastWordsAccumulator())).get();
 
         assertEquals(expectedResultString, taskResult.getErrors().get(0).toString());
     }

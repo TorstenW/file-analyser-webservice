@@ -26,7 +26,7 @@ public class Application {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.regex("(\\/examplefile|\\/evaluation)"))
+				.paths(PathSelectors.regex("(\\/examplefile/.*|\\/evaluation)"))
 				.build();
 	}
 

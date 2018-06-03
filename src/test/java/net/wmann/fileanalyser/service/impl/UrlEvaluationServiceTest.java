@@ -12,13 +12,13 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.net.URI;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.Executors;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UrlEvaluationServiceTest {
@@ -39,7 +39,8 @@ public class UrlEvaluationServiceTest {
         EvaluationResult expectedResult = createEvaluationResult();
         when(taskMock.get()).thenReturn(createEvaluationResult());
 
-        EvaluationResult testResult = evaluationService.evaluateFiles(Arrays.asList(new URI("google.com")), Arrays.asList(new LeastWordsAccumulator.Builder()));
+        EvaluationResult testResult = evaluationService.evaluateFiles(Collections.singletonList(new URI("google.com")),
+                                                                      Collections.singletonList(new LeastWordsAccumulator.Builder()));
 
         assertEquals("Evaluation result not correct", expectedResult.toString(), testResult.toString());
     }
@@ -47,7 +48,7 @@ public class UrlEvaluationServiceTest {
     private EvaluationResult createEvaluationResult() {
         Accumulator accumulator = new LeastWordsAccumulator();
         accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30, 5310");
-        return new EvaluationResult(Arrays.asList(accumulator));
+        return new EvaluationResult(Collections.singletonList(accumulator));
     }
 
 }

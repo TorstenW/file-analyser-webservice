@@ -24,5 +24,5 @@ curl -v "localhost:8080/evaluation?url=http://localhost:8080/examplefile/valid"
 **Useful Links:**
 
 - [[Healthstatus]](http://localhost:8080/actuator/health)
-- [[Swagger Docs]](http://localhost:8080/swaggerui)
+- [[Swagger Docs]](http://localhost:8080/swagger-ui.html)
 

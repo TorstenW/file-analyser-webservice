@@ -11,7 +11,8 @@ import java.io.IOException;
 public interface ExampleFileControllerApi {
 
     @ApiOperation(value = "Returns example csv speech file",
-            notes = "Returns an example csv file which can be used to test the speech analyser endpoint.",
+            notes = "Returns an example csv file which can be used to test the speech analyser endpoint.\n" +
+                    "Valid prefixes are: 'valid' and 'invalid'; returning a valid or invalid example file respectively",
             response = ResponseEntity.class,
             produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiResponses(value = {
