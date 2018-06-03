@@ -1,7 +1,7 @@
 **Quickstart:**
 
 1. Download "target/fileanalyser.jar"
-2. Start with: java -jar fileanalyser.jar
+2. Start with: `java -jar fileanalyser.jar`
 
 **Build project**
 
@@ -23,6 +23,6 @@ curl -v "localhost:8080/evaluation?url=http://localhost:8080/examplefile/valid"
 
 **Useful Links:**
 
-- [Healthstatus](localhost:8080/actuator/health)
-- [Swagger Docs](localhost:8080/swaggerui)
+- [[Healthstatus]](http://localhost:8080/actuator/health)
+- [[Swagger Docs]](http://localhost:8080/swaggerui)
 
