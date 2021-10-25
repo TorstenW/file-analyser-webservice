@@ -1,7 +1,8 @@
 package net.wmann.fileanalyser.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.controller.api.ExampleFileControllerApi;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@Slf4j
 public class ExampleFileController implements ExampleFileControllerApi {
+
+    private static final Logger log = LogManager.getLogger();
 
     private static final String EXAMPLE_FILE = "example_speeches.csv";
 

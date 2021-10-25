@@ -1,6 +1,5 @@
 package net.wmann.fileanalyser.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.accumulator.Accumulator;
 import net.wmann.fileanalyser.accumulator.LeastWordsAccumulator;
 import net.wmann.fileanalyser.accumulator.MostSecuritySpeechesAccumulator;
@@ -10,13 +9,16 @@ import net.wmann.fileanalyser.dto.EvaluationDto;
 import net.wmann.fileanalyser.dto.ResponseDto;
 import net.wmann.fileanalyser.model.Error;
 import net.wmann.fileanalyser.service.AccumulatorService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Slf4j
 public class AccumulatorServiceImpl implements AccumulatorService {
+
+    private static final Logger log = LogManager.getLogger();
 
     @Override
     public ResponseDto createSpeechAccumulatorResult(List<Accumulator> accumulators, List<Error> errors) {

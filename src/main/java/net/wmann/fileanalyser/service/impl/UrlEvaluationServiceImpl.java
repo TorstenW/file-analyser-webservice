@@ -1,12 +1,13 @@
 package net.wmann.fileanalyser.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.accumulator.Accumulator;
 import net.wmann.fileanalyser.accumulator.Builder;
 import net.wmann.fileanalyser.model.Error;
 import net.wmann.fileanalyser.model.EvaluationResult;
 import net.wmann.fileanalyser.service.EvaluationService;
 import net.wmann.fileanalyser.task.UrlEvaluationTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -17,10 +18,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
 @Service(value="urlEvaluationService")
-@Slf4j
 public class UrlEvaluationServiceImpl implements EvaluationService {
 
-    private ExecutorService pool;
+    private static final Logger log = LogManager.getLogger();
+
+    private final ExecutorService pool;
 
     public UrlEvaluationServiceImpl(ExecutorService pool) {
         this.pool = pool;
@@ -38,7 +40,7 @@ public class UrlEvaluationServiceImpl implements EvaluationService {
 
         // Map the List of Future to a Future of List
         CompletableFuture<List<EvaluationResult>> allEvaluationResults =
-                CompletableFuture.allOf(evaluationFutures.toArray(new CompletableFuture[evaluationFutures.size()]))
+                CompletableFuture.allOf(evaluationFutures.toArray(new CompletableFuture[0]))
                                  .thenApply(v -> evaluationFutures.stream()
                                                     .map(CompletableFuture::join)
                                                     .collect(Collectors.toList()));
@@ -48,9 +50,9 @@ public class UrlEvaluationServiceImpl implements EvaluationService {
             log.info("Finished all url evaluations. Creating result...");
             final EvaluationResult evalResult = new EvaluationResult(buildAccumulators(accumulatorBuilders));
             partResults.forEach(partResult -> {
-                evalResult.addErrors(partResult.getErrors());
-                evalResult.getAccumulators().forEach(resultAcc -> {
-                    for(Accumulator partAcc : partResult.getAccumulators()) {
+                evalResult.addErrors(partResult.errors());
+                evalResult.accumulators().forEach(resultAcc -> {
+                    for(Accumulator partAcc : partResult.accumulators()) {
                         if(partAcc.getClass() == resultAcc.getClass()) {
                             resultAcc.combine(partAcc);
                             break;
@@ -64,10 +66,10 @@ public class UrlEvaluationServiceImpl implements EvaluationService {
         EvaluationResult evaluationResult;
         try {
             evaluationResult = evaluationResultFuture.get();
-            log.debug(evaluationResult.getAccumulators().toString());
+            log.debug(evaluationResult.accumulators().toString());
         } catch (Exception e) {
             log.error("Error while getting evaluation future", e);
-            evaluationResult = new EvaluationResult(Collections.EMPTY_LIST);
+            evaluationResult = new EvaluationResult(Collections.emptyList());
             evaluationResult.addError(new Error("Internal Server Error", e.getClass().getSimpleName(), e.getMessage()));
         }
 

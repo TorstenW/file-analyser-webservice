@@ -1,11 +1,11 @@
 package net.wmann.fileanalyser.accumulator;
 
-import lombok.ToString;
 import net.wmann.fileanalyser.model.SpeakerCountPair;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.*;
 
-@ToString
 public class MostSecuritySpeechesAccumulator extends AbstractSpeechAccumulator {
 
     private static final String DOMESTIC_SECURITY_KEY = "Innere Sicherheit";
@@ -40,4 +40,10 @@ public class MostSecuritySpeechesAccumulator extends AbstractSpeechAccumulator {
 
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("speechesAboutSecurity", speechesAboutSecurity)
+                .toString();
+    }
 }

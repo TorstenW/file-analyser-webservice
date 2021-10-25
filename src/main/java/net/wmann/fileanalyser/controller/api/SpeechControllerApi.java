@@ -21,7 +21,7 @@ public interface SpeechControllerApi {
                     + "- The politician who gave the most speeches about the topic domestic security\n"
                     + "- The politician who said the least amount of words",
             response = EvaluationDto.class,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successful evaluation of csv files", response = EvaluationDto.class),
             @ApiResponse(code = 400, message = "Invalid user request", response = ErrorListDto.class),

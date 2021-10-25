@@ -1,9 +1,10 @@
 package net.wmann.fileanalyser.task;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.accumulator.Accumulator;
 import net.wmann.fileanalyser.model.Error;
 import net.wmann.fileanalyser.model.EvaluationResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-@Slf4j
 public class UrlEvaluationTask implements Supplier<EvaluationResult> {
+
+    private static final Logger log = LogManager.getLogger();
 
     private final URI uri;
     private final List<Accumulator> accumulators;
@@ -29,7 +31,7 @@ public class UrlEvaluationTask implements Supplier<EvaluationResult> {
 
     @Override
     public EvaluationResult get() {
-        log.info(String.format("Starting evaluation of url: %s", uri.toString()));
+        log.info("Starting evaluation of url: %s".formatted(uri));
         List<Error> errors = new ArrayList<>();
         try (BufferedReader reader = loadCsvFile(uri.toURL())) {
             reader.lines()
@@ -37,10 +39,10 @@ public class UrlEvaluationTask implements Supplier<EvaluationResult> {
                   .forEach(line -> accumulators
                           .forEach(acc -> acc.process(line)));
         } catch (Exception e) {
-            log.debug(String.format("Error while trying to process file from %s", uri.toString()), e);
-            errors.add(new Error(String.format("File processing error for URL: %s", uri.toString()), e.getClass().getSimpleName(), e.getMessage()));
+            log.debug("Error while trying to process file from %s".formatted(uri), e);
+            errors.add(new Error("File processing error for URL: %s".formatted(uri), e.getClass().getSimpleName(), e.getMessage()));
         }
-        log.debug(String.format("Finished url evaluation of url: %s", uri.toString()));
+        log.debug("Finished url evaluation of url: %s".formatted(uri));
         return new EvaluationResult(accumulators, errors);
     }
 

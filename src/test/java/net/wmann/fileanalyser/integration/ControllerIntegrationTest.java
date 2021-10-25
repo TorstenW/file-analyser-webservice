@@ -4,25 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.wmann.fileanalyser.dto.ErrorListDto;
 import net.wmann.fileanalyser.dto.EvaluationDto;
 import net.wmann.fileanalyser.model.Error;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"task.pool.nthread=4"})
 public class ControllerIntegrationTest {
@@ -37,7 +34,7 @@ public class ControllerIntegrationTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    @Before
+    @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
@@ -48,10 +45,10 @@ public class ControllerIntegrationTest {
 
         String responseContent = mockMvc.perform(get("/evaluation?url=http://localhost:" + port + "/examplefile/valid"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
-        Assert.assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, EvaluationDto.class)));
+        assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, EvaluationDto.class)));
     }
 
     @Test
@@ -60,10 +57,10 @@ public class ControllerIntegrationTest {
 
         String responseContent = mockMvc.perform(get("/evaluation?url=http://localhost:" + port + "/examplefile/valid&url=http://localhost:" + port + "/examplefile/valid"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
-        Assert.assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, EvaluationDto.class)));
+        assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, EvaluationDto.class)));
     }
 
     @Test
@@ -72,10 +69,10 @@ public class ControllerIntegrationTest {
 
         String responseContent = mockMvc.perform(get("/evaluation?url="))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
-        Assert.assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, EvaluationDto.class)));
+        assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, EvaluationDto.class)));
     }
 
     @Test
@@ -91,10 +88,10 @@ public class ControllerIntegrationTest {
 
         String responseContent = mockMvc.perform(get("/evaluation?url=invalidURL123"))
                 .andExpect(status().is4xxClientError())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
 
-        Assert.assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, ErrorListDto.class)));
+        assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, ErrorListDto.class)));
     }
 
     @Test
@@ -106,11 +103,11 @@ public class ControllerIntegrationTest {
 
         String responseContent = mockMvc.perform(get("/evaluation?url=http://localhost:" + port + "/examplefile/invalid"))
                 .andExpect(status().is5xxServerError())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
         System.out.println(responseContent);
 
-        Assert.assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, ErrorListDto.class)));
+        assertEquals("Wrong evaluation result returned by controller", expectedResult, (mapper.readValue(responseContent, ErrorListDto.class)));
     }
 
     private EvaluationDto getValidEvaluationDto() {

@@ -1,14 +1,16 @@
 package net.wmann.fileanalyser.accumulator;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.exception.InvalidLineException;
 import net.wmann.fileanalyser.model.Error;
 import net.wmann.fileanalyser.model.SpeakerCountPair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-@Slf4j
-public abstract class AbstractSpeechAccumulator implements Accumulator<String> {
+public abstract class AbstractSpeechAccumulator implements Accumulator {
+
+    private static final Logger log = LogManager.getLogger();
 
     private final SpeakerCountPair INVALID_SPEAKER_COUNT_PAIR = new SpeakerCountPair(null, -1);
     private final List<Error> foundErrors = new ArrayList<>();

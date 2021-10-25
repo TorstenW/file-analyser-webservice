@@ -1,14 +1,14 @@
 package net.wmann.fileanalyser.accumulator;
 
-import lombok.ToString;
 import net.wmann.fileanalyser.model.SpeakerCountPair;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-@ToString
 public class MostSpeeches2013Accumulator extends AbstractSpeechAccumulator {
 
     private static final int POSITION_DATE = 2;
@@ -40,5 +40,12 @@ public class MostSpeeches2013Accumulator extends AbstractSpeechAccumulator {
             return new MostSpeeches2013Accumulator();
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("speechesIn2013", speechesIn2013)
+                .toString();
     }
 }

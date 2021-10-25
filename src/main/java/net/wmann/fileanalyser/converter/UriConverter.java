@@ -1,7 +1,8 @@
 package net.wmann.fileanalyser.converter;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.exception.InvalidUrlException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -10,8 +11,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 public class UriConverter {
+
+    private static final Logger log = LogManager.getLogger();
 
     public static List<URI> convert(List<String> urls) throws InvalidUrlException {
         List<String> invalidUrls = new ArrayList<>();

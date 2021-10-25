@@ -7,9 +7,8 @@ import java.util.List;
 /**
  * An accumulator is used to evaluate a single line and store the current status of the evaluation
  *
- * @param <R> The type of the result this Accumulator returns
  */
-public interface Accumulator <R> {
+public interface Accumulator {
 
     /**
      * Evaluates if a line matches the criteria and updates its state if necessary
@@ -30,7 +29,7 @@ public interface Accumulator <R> {
      *
      * @return The result according to the current state of this instance
      */
-    R getResult();
+    String getResult();
 
     /**
      *

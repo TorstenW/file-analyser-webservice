@@ -1,6 +1,5 @@
 package net.wmann.fileanalyser.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import net.wmann.fileanalyser.accumulator.Builder;
 import net.wmann.fileanalyser.accumulator.LeastWordsAccumulator;
 import net.wmann.fileanalyser.accumulator.MostSecuritySpeechesAccumulator;
@@ -15,6 +14,8 @@ import net.wmann.fileanalyser.model.Error;
 import net.wmann.fileanalyser.model.EvaluationResult;
 import net.wmann.fileanalyser.service.AccumulatorService;
 import net.wmann.fileanalyser.service.EvaluationService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-@Slf4j
 public class SpeechController implements SpeechControllerApi {
+
+    private static final Logger log = LogManager.getLogger();
 
     private final EvaluationService evaluationService;
     private final AccumulatorService accumulatorService;
@@ -52,9 +54,9 @@ public class SpeechController implements SpeechControllerApi {
             EvaluationResult evaluationResult = evaluationService.evaluateFiles(uris, accumulatorBuilders);
 
             if(evaluationResult.hasAccumulator()) {
-                result = accumulatorService.createSpeechAccumulatorResult(evaluationResult.getAccumulators(), evaluationResult.getErrors());
+                result = accumulatorService.createSpeechAccumulatorResult(evaluationResult.accumulators(), evaluationResult.errors());
             } else {
-                result = new ErrorListDto(evaluationResult.getErrors());
+                result = new ErrorListDto(evaluationResult.errors());
             }
         }
 

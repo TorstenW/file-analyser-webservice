@@ -4,23 +4,23 @@ import net.wmann.fileanalyser.accumulator.Accumulator;
 import net.wmann.fileanalyser.accumulator.LeastWordsAccumulator;
 import net.wmann.fileanalyser.model.EvaluationResult;
 import net.wmann.fileanalyser.task.UrlEvaluationTask;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.net.URI;
 import java.util.Collections;
 import java.util.concurrent.Executors;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UrlEvaluationServiceTest {
 
     @Spy
@@ -29,7 +29,7 @@ public class UrlEvaluationServiceTest {
     @Mock
     UrlEvaluationTask taskMock;
 
-    @Before
+    @BeforeEach
     public void setup() {
         doReturn(taskMock).when(evaluationService).getUrlEvaluationTask(any(), any());
     }
@@ -42,7 +42,7 @@ public class UrlEvaluationServiceTest {
         EvaluationResult testResult = evaluationService.evaluateFiles(Collections.singletonList(new URI("google.com")),
                                                                       Collections.singletonList(new LeastWordsAccumulator.Builder()));
 
-        assertEquals("Evaluation result not correct", expectedResult.toString(), testResult.toString());
+        assertEquals(expectedResult.toString(), testResult.toString(), "Evaluation result not correct");
     }
 
     private EvaluationResult createEvaluationResult() {

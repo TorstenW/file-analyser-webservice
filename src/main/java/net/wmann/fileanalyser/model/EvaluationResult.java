@@ -1,26 +1,16 @@
 package net.wmann.fileanalyser.model;
 
-import lombok.Data;
 import net.wmann.fileanalyser.accumulator.Accumulator;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-public class EvaluationResult {
-
-    private final List<Accumulator> accumulators;
-
-    private final List<Error> errors;
+public record EvaluationResult(List<Accumulator> accumulators, List<Error> errors) {
 
     public EvaluationResult(List<Accumulator> accumulators) {
-        this.accumulators = accumulators;
-        this.errors = new ArrayList<>();
-    }
-
-    public EvaluationResult(List<Accumulator> accumulators, List<Error> errors) {
-        this.accumulators = accumulators;
-        this.errors = errors;
+        this(new ArrayList<>(accumulators), new ArrayList<>());
     }
 
     public void addErrors(List<Error> errors) {
@@ -35,4 +25,11 @@ public class EvaluationResult {
         return null != accumulators && !accumulators.isEmpty();
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("accumulators", accumulators)
+                .append("errors", errors)
+                .toString();
+    }
 }
