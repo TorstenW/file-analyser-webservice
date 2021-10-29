@@ -13,6 +13,7 @@ public class EvaluationDto implements ResponseDto {
 
     private String leastWordy;
 
+    // Needed by Springframework
     public String getMostSpeeches() {
         return mostSpeeches;
     }
@@ -21,6 +22,7 @@ public class EvaluationDto implements ResponseDto {
         this.mostSpeeches = mostSpeeches;
     }
 
+    // Needed by Springframework
     public String getMostSecurity() {
         return mostSecurity;
     }
@@ -29,6 +31,7 @@ public class EvaluationDto implements ResponseDto {
         this.mostSecurity = mostSecurity;
     }
 
+    // Needed by Springframework
     public String getLeastWordy() {
         return leastWordy;
     }

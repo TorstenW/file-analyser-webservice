@@ -16,7 +16,6 @@ import net.wmann.fileanalyser.service.AccumulatorService;
 import net.wmann.fileanalyser.service.EvaluationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,7 @@ public class SpeechController implements SpeechControllerApi {
     private final EvaluationService evaluationService;
     private final AccumulatorService accumulatorService;
 
-    public SpeechController(@Qualifier("urlEvaluationService") EvaluationService evaluationService, AccumulatorService accumulatorService) {
+    public SpeechController(EvaluationService evaluationService, AccumulatorService accumulatorService) {
         this.evaluationService = evaluationService;
         this.accumulatorService = accumulatorService;
     }
@@ -71,7 +70,7 @@ public class SpeechController implements SpeechControllerApi {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidUrlException.class)
     public ErrorListDto invalidUrlException(InvalidUrlException e) {
-        Error error = new Error(e.getClass().getSimpleName(), e.getMessage(), e.getErrorMessage());
+        Error error = new Error("An error occurred while parsing the requested urls", e.getClass().getSimpleName(), e.getMessage());
         return new ErrorListDto(error);
     }
 

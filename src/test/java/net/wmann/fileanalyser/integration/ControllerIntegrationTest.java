@@ -83,7 +83,7 @@ public class ControllerIntegrationTest {
 
     @Test
     public void evaluateInvalidUrl() throws Exception {
-        Error error = new Error("InvalidUrlException", null, "The following URLs are not valid: invalidURL123");
+        Error error = new Error("An error occurred while parsing the requested urls", "InvalidUrlException", "The following URLs are not valid: invalidURL123");
         ErrorListDto expectedResult = new ErrorListDto(error);
 
         String responseContent = mockMvc.perform(get("/evaluation?url=invalidURL123"))

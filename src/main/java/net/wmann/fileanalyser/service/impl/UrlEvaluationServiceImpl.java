@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
-@Service(value="urlEvaluationService")
+@Service
 public class UrlEvaluationServiceImpl implements EvaluationService {
 
     private static final Logger log = LogManager.getLogger();
