@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.*;
 
-public class MostSecuritySpeechesAccumulator extends AbstractSpeechAccumulator {
+public final class MostSecuritySpeechesAccumulator extends AbstractSpeechAccumulator {
 
     private static final String DOMESTIC_SECURITY_KEY = "Innere Sicherheit";
     private static final int POSITION_TOPIC = 1;

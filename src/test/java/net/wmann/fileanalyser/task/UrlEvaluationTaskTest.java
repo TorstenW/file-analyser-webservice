@@ -29,7 +29,7 @@ public class UrlEvaluationTaskTest {
     @Test
     public void getEvaluationResult() {
         String expectedResultString = "EvaluationResult[accumulators=[LeastWordsAccumulator[wordCount={Alexander Abel=SpeakerCountPair[speaker=Alexander Abel,count=6221], "
-                + "Bernhard Belling=SpeakerCountPair[speaker=Bernhard Belling,count=1210], Caesare Collins=SpeakerCountPair[speaker=Caesare Collins,count=1119]}]],errors=[]]";
+                + "Bernhard Belling=SpeakerCountPair[speaker=Bernhard Belling,count=1210], Caesare Collins=SpeakerCountPair[speaker=Caesare Collins,count=1119]}]], errors=[]]";
 
         EvaluationResult taskResult = evaluationTask.get();
 

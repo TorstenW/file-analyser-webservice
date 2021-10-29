@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.*;
 
-public class LeastWordsAccumulator extends AbstractSpeechAccumulator {
+public final class LeastWordsAccumulator extends AbstractSpeechAccumulator {
 
     private static final int POSITION_WORD_COUNT = 3;
 

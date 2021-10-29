@@ -6,9 +6,8 @@ import java.util.List;
 
 /**
  * An accumulator is used to evaluate a single line and store the current status of the evaluation
- *
  */
-public interface Accumulator {
+public sealed interface Accumulator permits AbstractSpeechAccumulator {
 
     /**
      * Evaluates if a line matches the criteria and updates its state if necessary
@@ -26,13 +25,11 @@ public interface Accumulator {
     void combine(Accumulator accumulator);
 
     /**
-     *
      * @return The result according to the current state of this instance
      */
     String getResult();
 
     /**
-     *
      * @return All errors encountered so far during evaluation
      */
     List<Error> getErrors();

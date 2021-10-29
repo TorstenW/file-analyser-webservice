@@ -47,7 +47,7 @@ public class TestfileGenerator {
     private static final long DATE_IN_2011_MILIS = 1300000000000L;
     private static final long DELTA_ABOUT_6_YEARS_MILIS = 200000000000L;
 
-    private static final String TARGET_PATH = "";
+    private static final String TARGET_PATH = "/home/spoof/repos/java/file-analyser-webservice/src/main/resources/static/big_file.csv";
     private static final int LINES_TO_CREATE_COUNT = 2000000; // 2000000 is about 100 MB filesize
 
     public static void main(String... args) throws Exception {
@@ -56,7 +56,7 @@ public class TestfileGenerator {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write("Redner, Thema, Datum, Wörter\n");
 
-            for(int i = 0; i < LINES_TO_CREATE_COUNT; i++) {
+            for (int i = 0; i < LINES_TO_CREATE_COUNT; i++) {
                 StringBuilder b = new StringBuilder();
                 b.append(NAMES.get(ThreadLocalRandom.current().nextInt(0, NAMES.size()))).append(", ");
                 b.append(TOPCIS.get(ThreadLocalRandom.current().nextInt(0, TOPCIS.size()))).append(", ");

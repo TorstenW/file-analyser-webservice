@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MostSpeeches2013Accumulator extends AbstractSpeechAccumulator {
+public final class MostSpeeches2013Accumulator extends AbstractSpeechAccumulator {
 
     private static final int POSITION_DATE = 2;
 
