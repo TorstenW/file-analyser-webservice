@@ -17,17 +17,11 @@ import static org.mockito.Mockito.spy;
 
 public class UrlEvaluationTaskTest {
 
-    private UrlEvaluationTask evaluationTask;
-
-    @BeforeEach
-    public void setup() throws Exception {
-        evaluationTask = spy(new UrlEvaluationTask(new URI("http://google.com"), Collections.singletonList(new LeastWordsAccumulator())));
+    @Test
+    public void getEvaluationResult() throws Exception {
+        var evaluationTask = spy(new UrlEvaluationTask(new URI("http://google.com"), Collections.singletonList(new LeastWordsAccumulator())));
         BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/static/valid_example_speeches.csv")));
         doReturn(reader).when(evaluationTask).loadCsvFile(any());
-    }
-
-    @Test
-    public void getEvaluationResult() {
         String expectedResultString = "EvaluationResult[accumulators=[LeastWordsAccumulator[wordCount={Alexander Abel=SpeakerCountPair[speaker=Alexander Abel,count=6221], "
                 + "Bernhard Belling=SpeakerCountPair[speaker=Bernhard Belling,count=1210], Caesare Collins=SpeakerCountPair[speaker=Caesare Collins,count=1119]}]], errors=[]]";
 

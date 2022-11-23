@@ -34,9 +34,9 @@ public class UrlEvaluationServiceImpl implements EvaluationService {
 
         // create a Future for each URI
         List<CompletableFuture<EvaluationResult>> evaluationFutures =
-                    uris.stream()
+                uris.stream()
                         .map(uri -> CompletableFuture.supplyAsync(getUrlEvaluationTask(uri, accumulatorBuilders), pool))
-                        .collect(Collectors.toList());
+                        .toList();
 
         // Map the List of Future to a Future of List
         CompletableFuture<List<EvaluationResult>> allEvaluationResults =

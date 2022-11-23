@@ -57,12 +57,11 @@ public class TestfileGenerator {
             writer.write("Redner, Thema, Datum, Wörter\n");
 
             for (int i = 0; i < LINES_TO_CREATE_COUNT; i++) {
-                StringBuilder b = new StringBuilder();
-                b.append(NAMES.get(ThreadLocalRandom.current().nextInt(0, NAMES.size()))).append(", ");
-                b.append(TOPCIS.get(ThreadLocalRandom.current().nextInt(0, TOPCIS.size()))).append(", ");
-                b.append(DATE_FORMAT.format(createRandomDate())).append(", ");
-                b.append(ThreadLocalRandom.current().nextInt(1, 10001)).append("\n");
-                writer.write(b.toString());
+                String b = NAMES.get(ThreadLocalRandom.current().nextInt(0, NAMES.size())) + ", " +
+                        TOPCIS.get(ThreadLocalRandom.current().nextInt(0, TOPCIS.size())) + ", " +
+                        DATE_FORMAT.format(createRandomDate()) + ", " +
+                        ThreadLocalRandom.current().nextInt(1, 10001) + "\n";
+                writer.write(b);
             }
         }
     }

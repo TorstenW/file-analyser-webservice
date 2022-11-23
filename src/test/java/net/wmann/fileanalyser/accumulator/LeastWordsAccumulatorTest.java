@@ -4,11 +4,11 @@ import net.wmann.fileanalyser.exception.InvalidLineException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.util.AssertionErrors.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LeastWordsAccumulatorTest {
 
-    private LeastWordsAccumulator accumulator = new LeastWordsAccumulator();
+    private final LeastWordsAccumulator accumulator = new LeastWordsAccumulator();
 
     @Test
     public void processLine() {
@@ -20,38 +20,20 @@ public class LeastWordsAccumulatorTest {
 
     @Test
     public void processLineTooFewElements() {
-        try {
-            accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30");
-            assertTrue("Test should not reach this point", false);
-        } catch (InvalidLineException e) {
-            assertEquals("Line: 'Alexander Abel, Bildungspolitik, 2012-10-30'", e.getMessage());
-        } catch (Exception e) {
-            assertTrue("Test should not reach this point", false);
-        }
+        var exception = assertThrows(InvalidLineException.class, () -> accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30"));
+        assertEquals("Line: 'Alexander Abel, Bildungspolitik, 2012-10-30'", exception.getMessage());
     }
 
     @Test
     public void processLineTooManyElements() {
-        try {
-            accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30, 8973, asbf");
-            assertTrue("Test should not reach this point", false);
-        } catch (InvalidLineException e) {
-            assertEquals("Line: 'Alexander Abel, Bildungspolitik, 2012-10-30, 8973, asbf'", e.getMessage());
-        } catch (Exception e) {
-            assertTrue("Test should not reach this point", false);
-        }
+        var exception = assertThrows(InvalidLineException.class, () -> accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30, 8973, asbf"));
+        assertEquals("Line: 'Alexander Abel, Bildungspolitik, 2012-10-30, 8973, asbf'", exception.getMessage());
     }
 
     @Test
     public void processLineInvalidNumber() {
-        try {
-            accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30, asbf");
-            assertTrue("Test should not reach this point", false);
-        } catch (NumberFormatException e) {
-            assertEquals("For input string: \"asbf\"", e.getMessage());
-        } catch (Exception e) {
-            assertTrue("Test should not reach this point", false);
-        }
+        var exception = assertThrows(NumberFormatException.class, () -> accumulator.process("Alexander Abel, Bildungspolitik, 2012-10-30, asbf"));
+        assertEquals("For input string: \"asbf\"", exception.getMessage());
     }
 
 }
