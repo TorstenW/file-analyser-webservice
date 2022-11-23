@@ -4,7 +4,6 @@ import net.wmann.fileanalyser.accumulator.Builder;
 import net.wmann.fileanalyser.accumulator.LeastWordsAccumulator;
 import net.wmann.fileanalyser.accumulator.MostSecuritySpeechesAccumulator;
 import net.wmann.fileanalyser.accumulator.MostSpeeches2013Accumulator;
-import net.wmann.fileanalyser.controller.api.SpeechControllerApi;
 import net.wmann.fileanalyser.converter.UriConverter;
 import net.wmann.fileanalyser.dto.ErrorListDto;
 import net.wmann.fileanalyser.dto.EvaluationDto;
@@ -26,7 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-public class SpeechController implements SpeechControllerApi {
+public class SpeechController {
 
     private static final Logger log = LogManager.getLogger();
 

@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"task.pool.nthread=4"})
+@TestPropertySource(properties = {"task.pool.nthread=4", "spring.mvc.pathmatch.matching-strategy=ant_path_matcher"})
 public class ControllerIntegrationTest {
 
     @Autowired
@@ -32,7 +32,7 @@ public class ControllerIntegrationTest {
 
     private MockMvc mockMvc;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
     public void setup() {

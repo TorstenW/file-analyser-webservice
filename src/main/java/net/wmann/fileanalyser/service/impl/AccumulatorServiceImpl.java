@@ -25,10 +25,12 @@ public class AccumulatorServiceImpl implements AccumulatorService {
                 continue;
             }
             if (errors.isEmpty()) {
-                switch (accumulator) {
-                    case MostSpeeches2013Accumulator acc -> evaluationDto.setMostSpeeches(acc.getResult());
-                    case MostSecuritySpeechesAccumulator acc -> evaluationDto.setMostSecurity(acc.getResult());
-                    case LeastWordsAccumulator acc -> evaluationDto.setLeastWordy(acc.getResult());
+                if (accumulator instanceof MostSpeeches2013Accumulator) {
+                    evaluationDto.setMostSpeeches(accumulator.getResult());
+                } else if (accumulator instanceof MostSecuritySpeechesAccumulator) {
+                    evaluationDto.setMostSecurity(accumulator.getResult());
+                } else if (accumulator instanceof LeastWordsAccumulator) {
+                    evaluationDto.setLeastWordy(accumulator.getResult());
                 }
             }
         }

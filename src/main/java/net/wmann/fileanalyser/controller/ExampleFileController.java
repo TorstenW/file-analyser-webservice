@@ -1,6 +1,5 @@
 package net.wmann.fileanalyser.controller;
 
-import net.wmann.fileanalyser.controller.api.ExampleFileControllerApi;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-public class ExampleFileController implements ExampleFileControllerApi {
+public class ExampleFileController {
 
     private static final Logger log = LogManager.getLogger();
 
